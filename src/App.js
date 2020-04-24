@@ -1,26 +1,57 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, withRouter } from 'react-router-dom'
+import NavBar from './NavBar/NavBar'
+import SignInFormComponent from './SignIn/signIn'
+import SignUpComponent from './SignUp/signup'
+import LandingComponent from './Landing/landing'
+import API from './API'
 
-function App() {
+
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      name: null
+    }
+  }
+
+  componentDidMount() {
+    // If we have a token in localStorage, attempt to use it to validate ourselves against the server
+    if (localStorage.token) {
+      API.validate(localStorage.token)
+      // Pass the username and token the server sends back to signIn
+        .then(json => this.signIn(json.name, json.token))
+    }
+  }
+
+  signIn = (name, token) => {
+    this.setState({
+      name:name
+    })
+    localStorage.token = token
+  }
+
+  signOut = () => {
+    this.setState({
+      name: null
+    })
+    localStorage.removeItem("token")
+  }
+
+render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavBar signOut={this.signOut}/> {this.state.name ? <h3>{this.state.name} logged in</h3> : <h3>Not logged in</h3>}
+      <br></br>
+      <Route exact path="/signin" component={ (props) => <SignInFormComponent {...props} signIn={this.signIn}/>}></Route>
+      <Route exact path="/signup" component={SignUpComponent}></Route>
+      <Route exact path="/landing" component={LandingComponent}></Route>
     </div>
-  );
+    );
+  }
 }
+
+  
 
 export default App;
