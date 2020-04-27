@@ -1,5 +1,6 @@
 import React from 'react';
 import API from '../API'
+import BrewingButton from '../Components/BrewingButton'
 
 
 class LandingComponent extends React.Component {
@@ -26,9 +27,9 @@ class LandingComponent extends React.Component {
 
     renderRecipes = () => {
         console.log(this.state)
-            return this.state.user.recipes.map(recipe => 
-                <div key={recipe.id}>
-                    <h5>{recipe.id} - {recipe.name}</h5> 
+            return this.state.user.recipes.map((recipe, i) => 
+                <div key={i}>
+                    <h5>{recipe.id} - {recipe.name} - {recipe.ingredients[0].name}</h5> 
                 </div>
                 )
         }
@@ -37,6 +38,8 @@ class LandingComponent extends React.Component {
         return(
             <div>
                 <h2>Hello from landing</h2>
+                <BrewingButton></BrewingButton>
+                <h3>Your Coffees!</h3>
                 {this.renderRecipes()}
             </div>
 

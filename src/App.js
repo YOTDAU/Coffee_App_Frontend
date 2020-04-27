@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Route, withRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import NavBar from './NavBar/NavBar'
 import SignInFormComponent from './SignIn/signIn'
 import SignUpComponent from './SignUp/signup'
 import LandingComponent from './Landing/landing'
+import CoffeeFormPage from './CoffeeForm/Containers/CoffeeFormPage'
 import API from './API'
 
 
@@ -46,7 +47,8 @@ render(){
       <br></br>
       <Route exact path="/signin" component={ (props) => <SignInFormComponent {...props} signIn={this.signIn}/>}></Route>
       <Route exact path="/signup" component={SignUpComponent}></Route>
-      <Route exact path="/landing" component={LandingComponent}></Route>
+      <Route exact path="/landing" component={ (props) => <LandingComponent {...props} />}></Route>
+      <Route exact path="/coffee-maker" component={CoffeeFormPage}></Route>
     </div>
     );
   }
