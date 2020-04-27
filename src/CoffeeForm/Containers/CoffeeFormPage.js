@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from "react-router-dom"
 import QRCode from 'qrcode.react'
 
 import API from '../../API'
@@ -15,7 +14,8 @@ class CoffeeFormPage extends React.Component {
         this.state = {
             categories: [],
             selectedCategoryId: 1,
-            userIngredients: []
+            userIngredients: [],
+            qrCode: null,
         }
     }
 
@@ -40,7 +40,7 @@ class CoffeeFormPage extends React.Component {
     }
 
     selectedCategory = () => {
-        return this.state.categories.find( c => c.id == this.state.selectedCategoryId )
+        return this.state.categories.find( c => c.id === this.state.selectedCategoryId )
     }
 
     selectIngredient = (ingredient) => {
@@ -54,7 +54,12 @@ class CoffeeFormPage extends React.Component {
     }
 
     generateQRCode(data) {
-        return <QRCode value={data} size={250} color='black' backgroundColor='white' />
+        let qr = JSON.stringify(data)
+        // alert(qr)
+        this.setState({ qrCode: qr })
+        
+        // return <QRCode value={qr} />
+
     }
 
     render() {
@@ -66,7 +71,13 @@ class CoffeeFormPage extends React.Component {
                 <CategoryContainer categories={this.state.categories} selectedCategoryId={this.state.selectedCategoryId} selectCategory={this.selectCategory} />
                 <IngredientsContainer selectedCategory={ this.selectedCategory()} selectIngredient={this.selectIngredient} />
                 <UserRecipeContainer userIngredient={this.state.userIngredients} removeIngredinet={this.removeIngredinet}/>
-                <button onClick={() => this.generateQRCode("google.com")}>Generate QR</button>
+                <button onClick={() => this.generateQRCode(this.state.userIngredients)}>Generate QR</button>
+                {
+                    this.state.qrCode
+                    ? <QRCode value={this.state.qrCode} />
+                    : null
+                }
+                {/* <QRCode value={JSON.stringify(this.state.userIngredients)} /> */}
             </div>
         )
         : null
