@@ -30,7 +30,6 @@ class App extends React.Component {
     this.setState({
       name:name
     })
-
     localStorage.setItem('token', token)
   }
 
@@ -47,7 +46,7 @@ render(){
       <NavBar signOut={this.signOut}/> {this.state.name ? <h3>{this.state.name} logged in</h3> : <h3>Not logged in</h3>}
       <br></br>
       <Route exact path="/signin" component={ (props) => <SignInFormComponent {...props} signIn={this.signIn}/>}></Route>
-      <Route exact path="/signup" component={SignUpComponent}></Route>
+      <Route exact path="/register" component={SignUpComponent}></Route>
       <Route exact path="/landing" component={ (props) => <LandingComponent {...props} />}></Route>
       <Route exact path="/coffee-maker" component={CoffeeFormPage}></Route>
       {/* <Search username={this.state.name}/> */}

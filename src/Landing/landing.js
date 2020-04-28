@@ -18,22 +18,23 @@ class LandingComponent extends React.Component {
     }
 
     // works for returning only user saved recipies
-    // componentDidMount() {
-    //     if (localStorage.token) {
-    //         API.getRecipes(localStorage.token)
-    //         .then(json => this.setState({user: json}))
-    //     } 
-        
-    // }
-
     componentDidMount() {
+        if (localStorage.token) {
+            API.getRecipes(localStorage.token)
+            .then(json => this.setState({user: json}))
+        } 
         API.getRecipesNoToken()
             .then(data => this.setState({allRecipes: data}))
+        
     }
+
+    // componentDidMount() {
+    //     API.getRecipesNoToken()
+    //         .then(data => this.setState({allRecipes: data}))
+    // }
 
     handleSerachChange = event => {
         this.setState({searchTerm: event.target.value})
-        console.log(this.state)
     }
     
     filterRecipes = () => {

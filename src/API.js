@@ -43,8 +43,7 @@ const validate = (token) => {
     return get(validateURL, token).then(response => response.json())
     }
 
-const signIn = (data) => post(signInURL, data)
-    .then(response => response.json())
+const signIn = (data) => post("sign-in", data)
 
 const getRecipes = (token) => {
     return get(userRecipesURL, token).then(response => response.json())
