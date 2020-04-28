@@ -1,5 +1,7 @@
 import React from 'react';
 import API from '../API'
+import { Link } from "react-router-dom"
+
 
 
 class SignInFormComponent extends React.Component {
@@ -14,7 +16,7 @@ class SignInFormComponent extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state)
+        // console.log(this.state)
         API.signIn(this.state)
             .then(json => this.props.signIn(json.name, json.token))
             .then(() => this.props.history.push("/landing"))
@@ -29,6 +31,7 @@ class SignInFormComponent extends React.Component {
 
     render() {
         return(
+            <div>
             <form onSubmit={this.handleSubmit}>
                 <lable>Username: </lable>
                 <input type='text' name='name' onChange={this.handleChange}/><br/>
@@ -37,6 +40,9 @@ class SignInFormComponent extends React.Component {
 
                 <input type="submit" value="Sign In"/>
             </form>
+            
+            <Link to="signup">Sign Up!</Link>
+            </div>
         )
     } 
 }

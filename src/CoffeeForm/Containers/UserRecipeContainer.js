@@ -20,7 +20,7 @@ class UserRecipeContainer extends React.Component {
         return this.props.userIngredient ? (
             
         <div>
-            <h2>Hello from UserRecipeContainer container</h2>
+            <h6>Hello from UserRecipeContainer container</h6>
             {this.renderUserCoffee()}
         </div>
         )

@@ -3,18 +3,23 @@ const signInURL = `${baseURL}/sign-in`
 const validateURL = `${baseURL}/validate`
 const userRecipesURL = `${baseURL}/user-recipes`
 const categoriesURL = `${baseURL}/categories`
+const recipesURL = `${baseURL}/recipes`
+// const usersURL = `${baseURL}/users`
 
 
-const post = (url, body) => {
+
+const post = (url, data) => {
     const configurationObject = {
-        method: "POST",
-        headers: {
-            "Content-Type": 'application/json',
-            Accept: 'application/json'
-        },
-        body: JSON.stringify(body)
-    }
-    return fetch(url, configurationObject)
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    return fetch(`${baseURL}/${url}`, configurationObject).then((res) =>
+    res.json()
+    )
 }
 
 const get = (url, token) => {
@@ -43,13 +48,32 @@ const signIn = (data) => post(signInURL, data)
 
 const getRecipes = (token) => {
     return get(userRecipesURL, token).then(response => response.json())
-} 
+}
+
+const getRecipesNoToken = () => {
+    return getNoToken(recipesURL).then(response => response.json())
+}
 
 const getCategories = () => {
     return getNoToken(categoriesURL).then(response => response.json())
 } 
 
+    // Public
 
 
+    // Private
 
-export default { signIn, validate, getRecipes, getCategories, getNoToken }
+    const authorisedFetch = (url, method, body) => {
+        return fetch(baseURL + url, {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('token'),
+            },
+            body: JSON.stringify(body)
+        })
+    }
+
+    // authorisedFetch('localhost:3000', 'POST', {data: [1, 2, 3]} )
+    
+export default { signIn, validate, getRecipes, getCategories, getNoToken, getRecipesNoToken, authorisedFetch }

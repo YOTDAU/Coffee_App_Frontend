@@ -6,7 +6,7 @@ const CategoryCard =({ id, name, selectCategory}) => {
         <div onClick={ () => selectCategory(id)}>
             <h1>{name}</h1>
             <p></p>
-            <p>Category Card</p>
+            <h6>Category Card</h6>
         </div>
     )
 }

@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(){
     super()
     this.state = {
-      name: null
+      name: null,
     }
   }
 
@@ -30,7 +30,8 @@ class App extends React.Component {
     this.setState({
       name:name
     })
-    localStorage.token = token
+
+    localStorage.setItem('token', token)
   }
 
   signOut = () => {
@@ -49,6 +50,7 @@ render(){
       <Route exact path="/signup" component={SignUpComponent}></Route>
       <Route exact path="/landing" component={ (props) => <LandingComponent {...props} />}></Route>
       <Route exact path="/coffee-maker" component={CoffeeFormPage}></Route>
+      {/* <Search username={this.state.name}/> */}
     </div>
     );
   }
