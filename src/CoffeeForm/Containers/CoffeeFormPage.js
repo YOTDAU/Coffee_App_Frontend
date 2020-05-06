@@ -1,5 +1,11 @@
 import React from 'react'
 import QRCode from 'qrcode.react'
+// import Container from '@material-ui/core/Container';
+// import CssBaseline from '@material-ui/core/CssBaseline';
+// import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 
 import API from '../../API'
 import CategoryContainer from './CategoryContainer'
@@ -52,12 +58,12 @@ class CoffeeFormPage extends React.Component {
 
     removeIngredinet = (ingredient) => {
         this.setState({
-            userIngredients: this.state.userIngredients.filter(i => i !== ingredient)
+            userIngredients: this.state.userIngredients.filter(i => i.id !== ingredient)
         })
     }
 
     generateQRCode(data) {
-        let q = data.map(ingredient => {return ingredient.name})
+        let q = data.map(data => {return data.name})
         let qr = JSON.stringify(q)
         this.setState({ qrCode: qr })
     }
@@ -67,26 +73,32 @@ class CoffeeFormPage extends React.Component {
         console.log(this.state)
     }
 
-    // filteredRecipes = () => {
-    //     const {}
-    // }
-
     render() {
 
         return this.selectedCategory() 
         ? (
             <div>   
-                <div>Hello from CoffeeFromPage</div>
-                <CategoryContainer categories={this.state.categories} selectedCategoryId={this.state.selectedCategoryId} selectCategory={this.selectCategory} />
-                <IngredientsContainer selectedCategory={ this.selectedCategory()} selectIngredient={this.selectIngredient} />
-                <NameSaveForm userIngredients={this.state.userIngredients}/>
-                <UserRecipeContainer userIngredient={this.state.userIngredients} removeIngredinet={this.removeIngredinet}/>
-                <button onClick={() => this.generateQRCode(this.state.userIngredients)}>Generate QR</button><br></br><br></br>
-                {
-                    this.state.qrCode
-                    ? <QRCode value={this.state.qrCode} />
-                    : null
-                }
+                <h3>Ingredient Categories</h3>
+                    <CategoryContainer categories={this.state.categories} selectedCategoryId={this.state.selectedCategoryId} selectCategory={this.selectCategory} />
+                    <IngredientsContainer selectedCategory={ this.selectedCategory()} selectIngredient={this.selectIngredient} />
+                <h3>Your Recipe!</h3>
+                <Grid container justify="center" >
+                    <NameSaveForm userIngredients={this.state.userIngredients}/>
+                </Grid>
+                <UserRecipeContainer userIngredient={this.state.userIngredients} removeIngredinet={this.removeIngredinet}/><br></br>
+                <Grid container justify="center"><br></br>
+                    <Button variant="contained" onClick={() => this.generateQRCode(this.state.userIngredients)}>Generate QR</Button><br></br><br></br>
+                    </Grid>
+                    {
+                        this.state.qrCode
+                        ?
+                        <div style={{display:"flex", justifyContent: "center", alignItems:"center", marginTop: 25}}>
+                            <QRCode value={this.state.qrCode} />
+                        </div>
+                        : null
+                    }
+                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+
             </div>
         )
         : null

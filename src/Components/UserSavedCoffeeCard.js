@@ -1,7 +1,9 @@
 import React from "react"
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import InfoPopper from './InfoPopper'
@@ -9,11 +11,14 @@ import QrPopper from "./QrPopper";
 import EcoIcon from '@material-ui/icons/Eco';
 
 
-const RecipeCard =({ name, user, ingredients, image1, image2, handleClick, generateQRCode, vegan }) => {
+
+
+
+const UserSavedCoffeeCard =({ name, selectCoffee, id, ingredients, image1, image2, vegan }) => {
 
     const useStyles = makeStyles({
         root: {
-          minWidth: 100,
+          minWidth: 80,
           display: 'inline-block',
         //   flexDirection: 'row',
         },
@@ -35,28 +40,26 @@ const RecipeCard =({ name, user, ingredients, image1, image2, handleClick, gener
         // const bull = <span className={classes.bullet}>•</span>;
 
     return(
-        <Grid spacing={1} style={{padding:5}}>
+        <Grid spacing={1} style={{padding:5}} onClick={ () => selectCoffee(id) }>
             <Card className={classes.root} varianet="outlined">
                 <CardContent>
-                <Typography  className={classes.title} color="textPrimary" gutterBottom>
-                    <h3>{name}</h3>
+                <Typography className={classes.title} color="textPrimary" gutterBottom>
+                    <h3>{name}</h3> 
                     <img src={image1}
-                      onMouseOver={e => (e.currentTarget.src=image2)}
-                      onMouseLeave={e => (e.currentTarget.src=image1)} 
+                    onMouseOver={e => (e.currentTarget.src=image2)}
+                    onMouseLeave={e => (e.currentTarget.src=image1)} 
                     />
-                    <p>{user}</p>
-                    </Typography>
-                    <Grid container>
-                      <InfoPopper handleClick={handleClick} ingredients={ingredients}/>
+                </Typography>
+                <Grid container alignItems="flex-start" justify="flex-start" direction="row">
 
-                      <QrPopper generateQRCode={generateQRCode} ingredients={ingredients}/>
-                      {vegan ? 
-                      <Grid>
-                          <EcoIcon fontSize="small"/>
+                <InfoPopper ingredients={ingredients}/>
+                <QrPopper ingredients={ingredients}/>
+                {vegan ? 
+                      <Grid >
+                        <EcoIcon fontSize="small"/>
                       </Grid> : null  
                     }
-                      
-                    </Grid>
+                </Grid>
                 </CardContent>
             </Card> 
         </Grid>
@@ -65,4 +68,4 @@ const RecipeCard =({ name, user, ingredients, image1, image2, handleClick, gener
     
 }
 
-export default RecipeCard
+export default UserSavedCoffeeCard

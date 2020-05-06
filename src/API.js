@@ -1,5 +1,4 @@
 const baseURL = 'http://localhost:3000'
-const signInURL = `${baseURL}/sign-in`
 const validateURL = `${baseURL}/validate`
 const userRecipesURL = `${baseURL}/user-recipes`
 const categoriesURL = `${baseURL}/categories`
@@ -75,4 +74,4 @@ const getCategories = () => {
 
     // authorisedFetch('localhost:3000', 'POST', {data: [1, 2, 3]} )
     
-export default { signIn, validate, getRecipes, getCategories, getNoToken, getRecipesNoToken, authorisedFetch }
+export default { post, signIn, validate, getRecipes, getCategories, getNoToken, getRecipesNoToken, authorisedFetch }

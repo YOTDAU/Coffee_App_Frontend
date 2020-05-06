@@ -1,6 +1,8 @@
 import React from 'react'
 import API from '../../API'
 
+
+
 class NameSaveForm extends React.Component {
 
     constructor(){
@@ -24,15 +26,25 @@ class NameSaveForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        API.authorisedFetch("/recipe_ingredients", "POST", this.state)
+        if(this.state.ingredients.length == 0){
+            alert("Gotta put something in!")
+            return false
+        }
+        
+        if(localStorage.token == null) {
+            alert("You must be logged in to save!")
+            return false
+        }
+        API.authorisedFetch("/recipe_ingredients", "POST", this.state).then(() => alert("Successful!"))
     }
 
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}> 
-                <input placeholder="Name your Coffee" type="text" onChange={this.handleInputChange}></input>
-                <input type="submit" value="Save Coffee"/>
+            
+            <form onSubmit={this.handleSubmit} className="nameForm">  
+                <input className='nameInput' placeholder="Name your Coffee" type="text" required onChange={this.handleInputChange}></input>
+                <button type="submit" value="Save Coffee" className="saveBtn" >Save</button>
             </form>
         )
     }
@@ -40,3 +52,4 @@ class NameSaveForm extends React.Component {
 }
 
 export default NameSaveForm
+
