@@ -18,7 +18,7 @@ const UserSavedCoffeeCard =({ name, selectCoffee, id, ingredients, image1, image
 
     const useStyles = makeStyles({
         root: {
-          minWidth: 80,
+          minWidth: 150,
           display: 'inline-block',
         //   flexDirection: 'row',
         },

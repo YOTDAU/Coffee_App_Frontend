@@ -13,8 +13,9 @@ const RecipeCard =({ name, user, ingredients, image1, image2, handleClick, gener
 
     const useStyles = makeStyles({
         root: {
-          minWidth: 100,
+          minWidth: 140,
           display: 'inline-block',
+          textAlign: 'center'
         //   flexDirection: 'row',
         },
         bullet: {

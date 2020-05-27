@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000'
+const baseURL = 'https://coffee-brewstar-api.herokuapp.com/'
 const validateURL = `${baseURL}/validate`
 const userRecipesURL = `${baseURL}/user-recipes`
 const categoriesURL = `${baseURL}/categories`
